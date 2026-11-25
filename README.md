@@ -21,8 +21,10 @@ Every frame comes from a real 3D model, rendered into a grid of characters.
   rose slowly breathes.
 - **It is alive.** Golden pollen drifts up from the roses, petals now and then fall,
   and sparkles circle the bouquet. The bouquet sways gently from side to side.
-- **The words.** A small line in a thin font with a gold glint running across it.
-  Change it with `--message`.
+- **Glitter.** In the window, faint gold specks drift through the dark background and
+  now and then flash into tiny four-pointed stars.
+- **The words.** A small line, *capable & loved*, in a thin font with a gold glint
+  running across it. It is the only text on the screen.
 - **Every seed arranges a different bouquet.** The same seed always gives the same one.
 
 ## Install
@@ -45,7 +47,6 @@ pip install -r requirements.txt
 python -m bloom                       # full screen
 python -m bloom --windowed            # in a window
 python -m bloom --terminal            # right in the terminal
-python -m bloom -m "for you"          # different words
 python -m bloom moonlight -p sakura   # another bouquet, another palette
 ```
 
@@ -53,7 +54,6 @@ python -m bloom moonlight -p sakura   # another bouquet, another palette
 | --- | --- |
 | `seed` | any word or phrase (default `starlight`) |
 | `-p`, `--palette` | `starlight` (default), `rose`, `aurora`, `ember`, `ocean`, `sakura`, `prism` |
-| `-m`, `--message` | words under the bouquet (default `capable & loved`, `""` for none) |
 | `-w`, `--windowed` | open a window instead of full screen |
 | `-t`, `--terminal` | render in the terminal |
 | `--size` | window size in windowed mode (default `1280x800`) |
@@ -74,7 +74,6 @@ python -m bloom moonlight -p sakura   # another bouquet, another palette
 | `p` | next palette |
 | `f`, `F11` | toggle full screen |
 | `s` | save a screenshot to `screenshots/` |
-| `h` | show / hide help |
 | `esc`, `q` | quit |
 
 ### PyCharm
@@ -101,3 +100,5 @@ interpreter (`.venv`).
    glow in each cell's color goes underneath, so shapes read clearly from a distance.
 5. **Lettering** (`bloom/lettering.py`): smooth text in a thin font, lit with the palette.
 6. **Life** (`bloom/particles.py`): pollen, falling petals, sparkles.
+7. **Glitter** (`bloom/glitter.py`): background specks drawn as pre-rendered star sprites
+   with additive blending, hidden wherever a glyph of the bouquet covers them.

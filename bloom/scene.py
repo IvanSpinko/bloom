@@ -15,7 +15,7 @@ from .raster import Camera, Frame, render
 
 
 DEFAULT_SEED = "starlight"
-DEFAULT_MESSAGE = "capable & loved"
+MESSAGE = "capable & loved"
 
 
 class Scene:
@@ -23,14 +23,13 @@ class Scene:
         self,
         seed: str = DEFAULT_SEED,
         palette: str = "starlight",
-        message: str = DEFAULT_MESSAGE,
         speed: float = 1.0,
         detail: float = 1.0,
     ):
         self.palette = palette
         self.speed = speed
         self.detail = detail
-        self.lettering = Lettering(message)
+        self.lettering = Lettering(MESSAGE)
         self.camera = Camera(pitch=0.3, zoom=1.12, target_z=-0.6, center=0.45)
         # the bouquet slowly turns a little to one side and back
         self.sway_amp = 0.38

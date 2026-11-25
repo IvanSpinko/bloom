@@ -50,15 +50,20 @@ class GlyphCache:
         """Columns, rows and cell aspect ratio that fit a surface of this size."""
         return max(10, width // self.cw), max(5, height // self.ch), self.ch / self.cw
 
-    def draw(self, surface: pygame.Surface, frame: Frame) -> None:
-        """Fill the surface with the background and draw the frame centered on it.
+    def origin(self, surface: pygame.Surface, frame: Frame) -> tuple[int, int]:
+        """Top-left pixel of the character grid when it is centered on the surface."""
+        w, h = surface.get_size()
+        return (w - frame.cols * self.cw) // 2, (h - frame.rows * self.ch) // 2
+
+    def draw(self, surface: pygame.Surface, frame: Frame, clear: bool = True) -> None:
+        """Draw the frame centered on the surface (first filling it with the background).
 
         Under the glyphs goes a soft glow in the color of each cell: thin
         characters alone cover too little of a cell for shapes to read well.
         """
-        surface.fill(BG)
-        w, h = surface.get_size()
-        ox, oy = (w - frame.cols * self.cw) // 2, (h - frame.rows * self.ch) // 2
+        if clear:
+            surface.fill(BG)
+        ox, oy = self.origin(surface, frame)
         if self.backdrop > 0:
             glow = (frame.rgb.astype(np.float32) * self.backdrop).astype(np.uint8)
             small = pygame.surfarray.make_surface(np.ascontiguousarray(glow.transpose(1, 0, 2)))
